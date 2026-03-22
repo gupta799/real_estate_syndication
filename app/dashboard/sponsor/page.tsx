@@ -9,7 +9,7 @@ interface SponsorDashboardPageProps {
 export default async function SponsorDashboardPage({
   searchParams,
 }: SponsorDashboardPageProps) {
-  const { user, sponsor, listings, inquiries } = await getSponsorDashboardData();
+  const { sponsor, listings } = await getSponsorDashboardData();
   const query = searchParams ? await searchParams : {};
 
   return (
@@ -21,7 +21,7 @@ export default async function SponsorDashboardPage({
           <p className="section-summary">{sponsor.trackRecordSummary}</p>
         </div>
 
-        <div className="dashboard-grid sponsor-grid">
+        <div className="dashboard-grid">
           <div className="content-card">
             <h2>Submit a new listing</h2>
             {query.success ? <p className="success-text">Listing submitted for admin review.</p> : null}
@@ -69,7 +69,10 @@ export default async function SponsorDashboardPage({
           </div>
 
           <div className="content-card">
-            <h2>Your pipeline</h2>
+            <h2>Your submitted deals</h2>
+            <p className="section-summary">
+              This MVP keeps the sponsor side intentionally thin: submit deals and watch moderation status.
+            </p>
             <div className="stack-list">
               {listings.map((listing) => (
                 <article className="list-row" key={listing.id}>
@@ -80,21 +83,6 @@ export default async function SponsorDashboardPage({
                     </p>
                   </div>
                   <span className="status-badge">{listing.status}</span>
-                </article>
-              ))}
-            </div>
-          </div>
-
-          <div className="content-card">
-            <h2>Latest investor interest</h2>
-            <div className="stack-list">
-              {inquiries.map((inquiry) => (
-                <article className="list-row" key={inquiry.id}>
-                  <div>
-                    <strong>{inquiry.investorName}</strong>
-                    <p>{inquiry.listingTitle}</p>
-                  </div>
-                  <span>{inquiry.investorEmail}</span>
                 </article>
               ))}
             </div>

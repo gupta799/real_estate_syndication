@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed"
   },
   "dependencies": {
     "@supabase/ssr": "^0.5.2",
@@ -17,10 +19,11 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@playwright/mcp": "^0.0.29",
+    "@playwright/test": "^1.54.2",
     "@types/node": "^22.13.10",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "typescript": "^5.8.2"
   }
 }
-

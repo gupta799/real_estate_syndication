@@ -30,16 +30,45 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 npm run dev
 ```
 
+## Testing
+
+1. Install the Playwright browser once:
+
+```bash
+npx playwright install chromium
+```
+
+2. Run smoke tests:
+
+```bash
+npm run test:e2e
+```
+
+The smoke suite covers the simplified MVP paths:
+
+- home page messaging
+- listings browse flow
+- listing access request form
+- sponsor submission flow
+- admin moderation view
+
 ## Current MVP surface
 
 - Public listing marketplace with filters
 - Listing detail page with trust signals and inquiry form
-- Investor, sponsor, and admin dashboards
 - Sponsor listing submission flow
-- Manual moderation-oriented admin view
+- Admin review queue for listings and inquiries
 - Supabase schema starter at `supabase/schema.sql`
+
+## Simplified release scope
+
+- Investor experience: browse listings and request access
+- Sponsor experience: submit listings and view moderation state
+- Admin experience: review pending listings and recent inquiries
+- Deferred: payments, subscriptions, commitments, full CRM, analytics, and complex investor dashboards
 
 ## Notes
 
 - Without Supabase env vars, the app runs in demo mode using local mock data.
 - Auth actions currently route into demo dashboards; connect them to Supabase Auth for production login/signup.
+- Codex Playwright MCP was added to `~/.codex/config.toml` as `mcp_servers.playwright`.

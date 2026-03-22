@@ -5,8 +5,7 @@ import { getAppMode } from "@/lib/app-mode";
 
 const navItems = [
   { href: "/listings", label: "Listings" },
-  { href: "/dashboard/investor", label: "Investor" },
-  { href: "/dashboard/sponsor", label: "Sponsor" },
+  { href: "/dashboard/sponsor", label: "Sponsor Portal" },
   { href: "/admin", label: "Admin" },
 ];
 
@@ -39,4 +38,3 @@ export function Header() {
     </header>
   );
 }
-

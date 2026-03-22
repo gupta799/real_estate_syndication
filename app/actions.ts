@@ -76,4 +76,3 @@ export async function createListingAction(formData: FormData) {
 
   redirect("/dashboard/sponsor?success=listing-submitted");
 }
-

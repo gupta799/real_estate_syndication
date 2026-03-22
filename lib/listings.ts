@@ -2,6 +2,37 @@ import { mockInquiries, mockListings, mockSponsors, mockUsers } from "@/lib/mock
 import { createClient } from "@/lib/supabase/server";
 import { Listing, ListingFilters, ListingInquiry, SponsorProfile, UserProfile } from "@/lib/types";
 
+function toTitleCase(value: string) {
+  return value
+    .split(/[\s-_]+/)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+    .join(" ");
+}
+
+export function mockParseDealPdf(input: {
+  companyName: string;
+  contactEmail: string;
+  fileName: string;
+}) {
+  const rawTitle = input.fileName.replace(/\.pdf$/i, "") || "Submitted Deal";
+  const title = toTitleCase(rawTitle);
+
+  return {
+    companyName: input.companyName,
+    contactEmail: input.contactEmail,
+    fileName: input.fileName,
+    parsedTitle: title,
+    parsedLocation: "Charlotte, NC",
+    parsedPropertyType: "Multifamily",
+    parsedTargetIrr: "16.8%",
+    parsedMinimumInvestment: "$50,000",
+    parsedSummary:
+      "Mock parse result: stabilized multifamily acquisition with moderate renovation scope and a sponsor-led business plan.",
+    parseStatus: "Mock parsed successfully",
+  };
+}
+
 function applyFilters(listings: Listing[], filters: ListingFilters) {
   return listings.filter((listing) => {
     if (filters.state && listing.state !== filters.state.toUpperCase()) {
@@ -251,4 +282,3 @@ export async function saveSponsorListing(input: {
 
   return { ok: true, mode: "live" as const };
 }
-

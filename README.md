@@ -85,7 +85,7 @@ This app can deploy cleanly to AWS.
 ## Simplified release scope
 
 - Investor experience: browse listings and request access
-- Sponsor experience: submit listings and view moderation state
+- Sponsor experience: upload a deal PDF publicly and view mocked parsed output
 - Admin experience: review pending listings and recent inquiries
 - Deferred: payments, subscriptions, commitments, full CRM, analytics, and investor-facing account complexity
 

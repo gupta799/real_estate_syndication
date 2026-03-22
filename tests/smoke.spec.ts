@@ -38,21 +38,22 @@ test("listing detail form can submit an access request in demo mode", async ({
   await expect(page.getByText("Request received.")).toBeVisible();
 });
 
-test("sponsor dashboard supports simplified listing submission", async ({ page }) => {
-  await page.goto("/dashboard/sponsor");
+test("public sponsor PDF submission shows mocked parsed results", async ({ page }) => {
+  await page.goto("/signup/sponsor");
 
-  await page.getByLabel("Deal name").fill("Canal Point");
-  await page.getByLabel("City").fill("Dallas");
-  await page.getByLabel("State").fill("TX");
-  await page
-    .getByLabel("Summary")
-    .fill("A lean test listing for the sponsor submission workflow.");
-  await page.getByLabel("Target IRR").fill("17");
-  await page.getByLabel("Minimum investment").fill("50000");
-  await page.getByRole("button", { name: "Submit for review" }).click();
+  await page.getByLabel("Company name").fill("Atlas Equity");
+  await page.getByLabel("Contact email").fill("team@atlas.example");
+  await page.getByLabel("PDF teaser or OM").setInputFiles({
+    name: "charlotte-garden-deal.pdf",
+    mimeType: "application/pdf",
+    buffer: Buffer.from("%PDF-1.4 mock sponsor pdf"),
+  });
+  await page.getByRole("button", { name: "Upload PDF" }).click();
 
-  await expect(page).toHaveURL(/success=listing-submitted/);
-  await expect(page.getByText("Listing submitted for admin review.")).toBeVisible();
+  await expect(page).toHaveURL(/success=pdf-uploaded/);
+  await expect(page.getByText("Mock parsed result")).toBeVisible();
+  await expect(page.getByText("Charlotte Garden Deal")).toBeVisible();
+  await expect(page.getByText("Mock parsed successfully")).not.toHaveCount(0);
 });
 
 test("admin page shows manual moderation queues", async ({ page }) => {

@@ -17,12 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="background-orb orb-left" />
-        <div className="background-orb orb-right" />
         <Header />
         <main className="site-shell">{children}</main>
       </body>
     </html>
   );
 }
-

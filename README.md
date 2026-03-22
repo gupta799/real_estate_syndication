@@ -52,6 +52,28 @@ The smoke suite covers the simplified MVP paths:
 - sponsor submission flow
 - admin moderation view
 
+## Deployment
+
+This app can deploy cleanly to AWS.
+
+- Recommended AWS path: Amplify Hosting for the first release
+- Why: it supports Next.js 15 SSR apps and connects directly to GitHub branches for deployment
+- CI in this repo: GitHub Actions workflow at `.github/workflows/ci.yml`
+- CD path: connect the GitHub repo to AWS Amplify and let branch pushes deploy automatically
+
+### Required environment variables
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+
+### AWS rollout
+
+1. Create an Amplify app and connect `gupta799/real_estate_syndication`
+2. Point Amplify at the `main` branch
+3. Add the two Supabase environment variables in Amplify
+4. Let Amplify build with `amplify.yml`
+5. Attach a custom domain when the branch deploy is healthy
+
 ## Current MVP surface
 
 - Public listing marketplace with filters
@@ -65,7 +87,7 @@ The smoke suite covers the simplified MVP paths:
 - Investor experience: browse listings and request access
 - Sponsor experience: submit listings and view moderation state
 - Admin experience: review pending listings and recent inquiries
-- Deferred: payments, subscriptions, commitments, full CRM, analytics, and complex investor dashboards
+- Deferred: payments, subscriptions, commitments, full CRM, analytics, and investor-facing account complexity
 
 ## Notes
 

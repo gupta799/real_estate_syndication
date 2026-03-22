@@ -3,28 +3,19 @@ import Link from "next/link";
 import { Listing } from "@/lib/types";
 import { formatCurrency, formatPercent } from "@/lib/utils";
 
-const coverClasses: Record<string, string> = {
-  sunrise: "cover-sunrise",
-  marine: "cover-marine",
-  terracotta: "cover-terracotta",
-  cobalt: "cover-cobalt",
-};
-
 export function ListingCard({ listing }: { listing: Listing }) {
   return (
     <article className="listing-card">
-      <div className={`listing-cover ${coverClasses[listing.coverTone] ?? "cover-marine"}`}>
-        <span>{listing.city}, {listing.state}</span>
-        <strong>{listing.units} units</strong>
-      </div>
       <div className="listing-card-body">
-        <div className="eyebrow-row">
-          <span>{listing.sponsorName}</span>
-          <span>{listing.propertyType}</span>
+        <div className="listing-meta">
+          <span>
+            {listing.city}, {listing.state}
+          </span>
+          <span>{listing.units} units</span>
         </div>
         <h3>{listing.title}</h3>
         <p>{listing.summary}</p>
-        <dl className="metric-grid">
+        <dl className="metric-row">
           <div>
             <dt>Target IRR</dt>
             <dd>{formatPercent(listing.targetIrr)}</dd>
@@ -38,11 +29,13 @@ export function ListingCard({ listing }: { listing: Listing }) {
             <dd>{formatCurrency(listing.minimumInvestment)}</dd>
           </div>
         </dl>
-        <Link className="primary-link" href={`/listings/${listing.slug}`}>
-          View listing
-        </Link>
+        <div className="listing-footer">
+          <span className="listing-sponsor">{listing.sponsorName}</span>
+          <Link className="primary-link" href={`/listings/${listing.slug}`}>
+            Open listing
+          </Link>
+        </div>
       </div>
     </article>
   );
 }
-

@@ -1,17 +1,11 @@
 import Link from "next/link";
 
-import { signOutAction } from "@/app/actions";
-import { getAppMode } from "@/lib/app-mode";
-
 const navItems = [
   { href: "/listings", label: "Listings" },
-  { href: "/dashboard/sponsor", label: "Sponsor Portal" },
-  { href: "/admin", label: "Admin" },
+  { href: "/signup/sponsor", label: "Submit a deal" },
 ];
 
 export function Header() {
-  const mode = getAppMode();
-
   return (
     <header className="site-shell site-header">
       <Link href="/" className="brand-mark">
@@ -25,15 +19,9 @@ export function Header() {
         ))}
       </nav>
       <div className="header-actions">
-        <span className="mode-pill">{mode.label} mode</span>
         <Link className="ghost-button" href="/login">
           Log in
         </Link>
-        <form action={signOutAction}>
-          <button className="ghost-button" type="submit">
-            Sign out demo
-          </button>
-        </form>
       </div>
     </header>
   );

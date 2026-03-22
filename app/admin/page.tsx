@@ -8,10 +8,10 @@ export default async function AdminPage() {
     <div className="page-stack">
       <section className="content-section">
         <div className="section-heading">
-          <p className="section-kicker">Admin moderation</p>
-          <h1>Keep supply quality high with a thin review loop.</h1>
+          <p className="section-kicker">Admin review</p>
+          <h1>Review supply and recent investor interest.</h1>
           <p className="section-summary">
-            For the first release, admin tooling should cover review, approval, and basic oversight. Nothing more.
+            Internal tooling stays intentionally small in this release.
           </p>
         </div>
         <div className="dashboard-grid">

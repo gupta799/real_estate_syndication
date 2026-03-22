@@ -16,9 +16,9 @@ export default async function SponsorDashboardPage({
     <div className="page-stack">
       <section className="content-section">
         <div className="section-heading">
-          <p className="section-kicker">Sponsor dashboard</p>
+          <p className="section-kicker">Sponsor workspace</p>
           <h1>{sponsor.companyName}</h1>
-          <p className="section-summary">{sponsor.trackRecordSummary}</p>
+          <p className="section-summary">Submit deals and track review status. The rest stays manual for now.</p>
         </div>
 
         <div className="dashboard-grid">

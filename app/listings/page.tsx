@@ -32,9 +32,9 @@ export default async function ListingsPage({ searchParams }: ListingsPageProps) 
       <section className="content-section">
         <div className="section-heading">
           <p className="section-kicker">Marketplace</p>
-          <h1>Filter live syndication opportunities</h1>
+          <h1>Live multifamily listings</h1>
           <p className="section-summary">
-            Keep the discovery flow simple: clean filters, sponsor trust signals, and a single access request CTA.
+            A smaller filter set, a lighter layout, and one clear next step on every listing.
           </p>
         </div>
         <FilterBar filters={filters} />
@@ -52,4 +52,3 @@ export default async function ListingsPage({ searchParams }: ListingsPageProps) 
     </div>
   );
 }
-

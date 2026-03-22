@@ -27,18 +27,9 @@ export function FilterBar({ filters }: { filters: ListingFilters }) {
           type="number"
         />
       </label>
-      <label>
-        Sponsor
-        <input
-          defaultValue={filters.sponsor ?? ""}
-          name="sponsor"
-          placeholder="Ridge"
-        />
-      </label>
       <button className="primary-button" type="submit">
-        Apply filters
+        Filter
       </button>
     </form>
   );
 }
-

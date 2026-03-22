@@ -5,20 +5,20 @@ test("homepage shows simplified MVP messaging", async ({ page }) => {
 
   await expect(
     page.getByRole("heading", {
-      name: "Browse deals. Request access. Let sponsors and admins handle the rest.",
+      name: "A simpler place to browse live deals.",
     }),
   ).toBeVisible();
-  await expect(page.getByText("Only the essential flows")).toBeVisible();
-  await expect(page.getByRole("link", { name: "Explore listings" })).toBeVisible();
+  await expect(page.getByText("Three simple jobs")).toBeVisible();
+  await expect(page.getByRole("link", { name: "View listings" })).toBeVisible();
 });
 
 test("listings page shows published deals", async ({ page }) => {
   await page.goto("/listings");
 
   await expect(
-    page.getByRole("heading", { name: "Filter live syndication opportunities" }),
+    page.getByRole("heading", { name: "Live multifamily listings" }),
   ).toBeVisible();
-  await expect(page.getByRole("link", { name: "View listing" }).first()).toBeVisible();
+  await expect(page.getByRole("link", { name: "Open listing" }).first()).toBeVisible();
   await expect(page.getByText("Oakline Residences")).toBeVisible();
 });
 
@@ -58,7 +58,7 @@ test("sponsor dashboard supports simplified listing submission", async ({ page }
 test("admin page shows manual moderation queues", async ({ page }) => {
   await page.goto("/admin");
 
-  await expect(page.getByRole("heading", { name: /thin review loop/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /review supply and recent investor interest/i })).toBeVisible();
   await expect(page.getByText("Listings awaiting review")).toBeVisible();
   await expect(page.getByText("Juniper Commons")).toBeVisible();
   await expect(page.getByText("Latest inquiries")).toBeVisible();

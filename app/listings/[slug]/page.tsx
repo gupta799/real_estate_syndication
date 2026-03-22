@@ -54,11 +54,11 @@ export default async function ListingDetailPage({
             </div>
           </div>
           <div className="content-card">
-            <h2>Why this deal exists</h2>
+            <h2>Overview</h2>
             <p>{listing.marketStory}</p>
           </div>
           <div className="content-card">
-            <h2>Mandatory trust signal: sponsor track record</h2>
+            <h2>Sponsor</h2>
             <p>{sponsor?.trackRecordSummary ?? "Sponsor verification pending."}</p>
             <p>{sponsor?.bio ?? "Track record becomes richer once Supabase-backed profiles are connected."}</p>
           </div>
@@ -66,9 +66,9 @@ export default async function ListingDetailPage({
 
         <aside className="sidebar-stack">
           <div className="content-card accent-card">
-            <h2>Request access / learn more</h2>
+            <h2>Request access</h2>
             <p>
-              This MVP keeps the investor conversion flow intentionally narrow. One form, one clear next step.
+              Keep the next step simple. Share your details and the sponsor can follow up directly.
             </p>
             {success ? <p className="success-text">Request received. The sponsor can follow up from the dashboard.</p> : null}
             {error ? <p className="error-text">The form was incomplete. Try again.</p> : null}
@@ -99,7 +99,7 @@ export default async function ListingDetailPage({
           </div>
 
           <div className="content-card">
-            <h3>Deal snapshot</h3>
+            <h3>Deal facts</h3>
             <dl className="sidebar-metrics">
               <div>
                 <dt>Property type</dt>
@@ -119,7 +119,7 @@ export default async function ListingDetailPage({
               </div>
             </dl>
             <p className="mode-note">
-              Running in <strong>{mode.label}</strong> mode. Connect Supabase to persist inquiries and auth state.
+              Running in <strong>{mode.label}</strong> mode.
             </p>
           </div>
         </aside>
@@ -127,4 +127,3 @@ export default async function ListingDetailPage({
     </div>
   );
 }
-

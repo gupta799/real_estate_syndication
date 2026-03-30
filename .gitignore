@@ -25,3 +25,15 @@ test-results
 .env.development.local
 .env.test.local
 .env.production.local
+
+# terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+infra/terraform/backend.tf

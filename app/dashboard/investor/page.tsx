@@ -4,7 +4,7 @@ import { getInvestorDashboardData } from "@/lib/listings";
 import { formatDate } from "@/lib/utils";
 
 export default async function InvestorDashboardPage() {
-  const { user, inquiries } = await getInvestorDashboardData();
+  const { user, requests } = await getInvestorDashboardData();
 
   return (
     <div className="page-stack">
@@ -13,29 +13,29 @@ export default async function InvestorDashboardPage() {
           <p className="section-kicker">Investor dashboard</p>
           <h1>{user.fullName}</h1>
           <p className="section-summary">
-            A thin MVP dashboard is enough here: recent access requests and a route back to live deals.
+            This dashboard stays narrow: recent sponsor intro requests and a route back to historical profiles.
           </p>
         </div>
         <div className="dashboard-grid">
           <div className="content-card">
-            <h2>Your recent requests</h2>
+            <h2>Your recent intro requests</h2>
             <div className="stack-list">
-              {inquiries.map((inquiry) => (
-                <article className="list-row" key={inquiry.id}>
+              {requests.map((request) => (
+                <article className="list-row" key={request.id}>
                   <div>
-                    <strong>{inquiry.listingTitle}</strong>
-                    <p>{inquiry.message}</p>
+                    <strong>{request.profileTitle}</strong>
+                    <p>{request.message}</p>
                   </div>
-                  <span>{formatDate(inquiry.createdAt)}</span>
+                  <span>{formatDate(request.createdAt)}</span>
                 </article>
               ))}
             </div>
           </div>
           <div className="content-card">
             <h2>Next best action</h2>
-            <p>Keep the loop simple: browse deals, request access, and wait for sponsor follow-up.</p>
-            <Link className="primary-button" href="/listings">
-              Browse listings
+            <p>Compare sponsor track records, review historical outcomes, and request introductions without browsing live offerings.</p>
+            <Link className="primary-button" href="/syndications">
+              Browse sponsors
             </Link>
           </div>
         </div>
@@ -43,4 +43,3 @@ export default async function InvestorDashboardPage() {
     </div>
   );
 }
-

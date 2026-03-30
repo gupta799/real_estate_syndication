@@ -6,7 +6,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Syndicate Lane",
-  description: "Investor-first multifamily syndication marketplace MVP.",
+  description: "Investor-first sponsor intelligence directory for historical syndication track records.",
 };
 
 export default function RootLayout({

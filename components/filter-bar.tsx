@@ -1,31 +1,30 @@
-import { ListingFilters } from "@/lib/types";
+import { ProfileFilters } from "@/lib/types";
 
-export function FilterBar({ filters }: { filters: ListingFilters }) {
+export function FilterBar({ filters }: { filters: ProfileFilters }) {
   return (
-    <form className="filter-bar" action="/listings">
+    <form className="filter-bar" action="/syndications">
       <label>
-        State
+        Headquarters state
         <input defaultValue={filters.state ?? ""} name="state" placeholder="AZ" />
       </label>
       <label>
-        Minimum IRR
+        Asset focus
+        <input defaultValue={filters.focus ?? ""} name="focus" placeholder="Multifamily" />
+      </label>
+      <label>
+        Minimum realized IRR
         <input
-          defaultValue={filters.minIrr ?? ""}
+          defaultValue={filters.minRealizedIrr ?? ""}
           min="0"
-          name="minIrr"
-          placeholder="16"
+          name="minRealizedIrr"
+          placeholder="12"
+          step="0.1"
           type="number"
         />
       </label>
       <label>
-        Max minimum
-        <input
-          defaultValue={filters.maxMinimumInvestment ?? ""}
-          min="0"
-          name="maxMinimumInvestment"
-          placeholder="75000"
-          type="number"
-        />
+        Sponsor
+        <input defaultValue={filters.sponsor ?? ""} name="sponsor" placeholder="Ridge" />
       </label>
       <button className="primary-button" type="submit">
         Filter

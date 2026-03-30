@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   const formData = await request.formData();
   const companyName = readText(formData, "companyName");
   const contactEmail = readText(formData, "contactEmail");
-  const pdf = formData.get("dealPdf");
+  const pdf = formData.get("profilePdf");
 
   const redirectUrl = new URL("/signup/sponsor", request.url);
 

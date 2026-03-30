@@ -1,0 +1,16 @@
+aws_region   = "us-west-2"
+project_name = "syndicate-lane"
+image_tag    = "latest"
+
+container_environment = {
+  NODE_ENV = "production"
+  HOSTNAME = "0.0.0.0"
+  PORT     = "3000"
+}
+
+# For demo mode, leave this empty.
+# For live mode, prefer SSM Parameter Store or Secrets Manager ARNs here.
+container_secrets = {
+  # SUPABASE_URL      = "arn:aws:ssm:us-west-2:123456789012:parameter/syndicate-lane/SUPABASE_URL"
+  # SUPABASE_ANON_KEY = "arn:aws:ssm:us-west-2:123456789012:parameter/syndicate-lane/SUPABASE_ANON_KEY"
+}

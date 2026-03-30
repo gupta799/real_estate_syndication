@@ -2,51 +2,51 @@ import { getAdminDashboardData } from "@/lib/listings";
 import { formatDate } from "@/lib/utils";
 
 export default async function AdminPage() {
-  const { pendingListings, inquiries } = await getAdminDashboardData();
+  const { pendingProfiles, requests } = await getAdminDashboardData();
 
   return (
     <div className="page-stack">
       <section className="content-section">
         <div className="section-heading">
           <p className="section-kicker">Admin review</p>
-          <h1>Review supply and recent investor interest.</h1>
+          <h1>Review sponsor profiles and recent investor introductions.</h1>
           <p className="section-summary">
             Internal tooling stays intentionally small in this release.
           </p>
         </div>
         <div className="dashboard-grid">
           <div className="content-card">
-            <h2>Listings awaiting review</h2>
+            <h2>Profiles awaiting review</h2>
             <p className="section-summary">
-              Approve or reject supply manually before anything becomes visible in the marketplace.
+              Approve or reject historical profile content manually before anything becomes visible in the directory.
             </p>
             <div className="stack-list">
-              {pendingListings.map((listing) => (
-                <article className="list-row" key={listing.id}>
+              {pendingProfiles.map((profile) => (
+                <article className="list-row" key={profile.id}>
                   <div>
-                    <strong>{listing.title}</strong>
+                    <strong>{profile.title}</strong>
                     <p>
-                      {listing.city}, {listing.state} • {listing.sponsorName}
+                      {profile.city}, {profile.state} • {profile.assetFocus}
                     </p>
                   </div>
-                  <span className="status-badge">{listing.status}</span>
+                  <span className="status-badge">{profile.status}</span>
                 </article>
               ))}
             </div>
           </div>
           <div className="content-card">
-            <h2>Latest inquiries</h2>
+            <h2>Latest intro requests</h2>
             <p className="section-summary">
-              Investor interest is tracked at the inquiry level instead of a full CRM or allocation workflow.
+              Investor relationship signals are tracked at the request level instead of a full CRM workflow.
             </p>
             <div className="stack-list">
-              {inquiries.map((inquiry) => (
-                <article className="list-row" key={inquiry.id}>
+              {requests.map((request) => (
+                <article className="list-row" key={request.id}>
                   <div>
-                    <strong>{inquiry.investorName}</strong>
-                    <p>{inquiry.listingTitle}</p>
+                    <strong>{request.investorName}</strong>
+                    <p>{request.profileTitle}</p>
                   </div>
-                  <span>{formatDate(inquiry.createdAt)}</span>
+                  <span>{formatDate(request.createdAt)}</span>
                 </article>
               ))}
             </div>

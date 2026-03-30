@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 const navItems = [
-  { href: "/listings", label: "Listings" },
-  { href: "/signup/sponsor", label: "Submit a deal" },
+  { href: "/syndications", label: "Sponsors" },
+  { href: "/signup/sponsor", label: "Submit track record" },
 ];
 
 export function Header() {

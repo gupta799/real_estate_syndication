@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 
-import { saveConnectionRequest, saveSponsorProfile } from "@/lib/listings";
+import { saveInquiry, saveSponsorListing } from "@/lib/listings";
 
 function readText(formData: FormData, key: string) {
   const value = formData.get(key);
@@ -23,57 +23,56 @@ export async function signOutAction() {
   redirect("/");
 }
 
-export async function requestIntroductionAction(formData: FormData) {
-  const profileId = readText(formData, "profileId");
-  const profileTitle = readText(formData, "profileTitle");
+export async function requestAccessAction(formData: FormData) {
+  const listingId = readText(formData, "listingId");
+  const listingTitle = readText(formData, "listingTitle");
   const investorName = readText(formData, "investorName");
   const investorEmail = readText(formData, "investorEmail");
   const message = readText(formData, "message");
-  const slug = readText(formData, "slug");
 
-  if (!profileId || !investorName || !investorEmail) {
-    redirect(`/syndications/${slug}?error=missing-fields`);
+  if (!listingId || !investorName || !investorEmail) {
+    redirect(`/listings/${readText(formData, "slug")}?error=missing-fields`);
   }
 
-  const result = await saveConnectionRequest({
-    profileId,
-    profileTitle,
+  const result = await saveInquiry({
+    listingId,
+    listingTitle,
     investorName,
     investorEmail,
     message,
   });
 
   if (!result.ok) {
-    redirect(`/syndications/${slug}?error=request-failed`);
+    redirect(`/listings/${readText(formData, "slug")}?error=inquiry-failed`);
   }
 
-  redirect(`/syndications/${slug}?success=intro-requested`);
+  redirect(`/listings/${readText(formData, "slug")}?success=access-requested`);
 }
 
-export async function createProfileAction(formData: FormData) {
-  const companyName = readText(formData, "companyName");
+export async function createListingAction(formData: FormData) {
+  const title = readText(formData, "title");
   const city = readText(formData, "city");
   const state = readText(formData, "state");
-  const focus = readText(formData, "focus");
   const summary = readText(formData, "summary");
-  const yearsExperience = Number(readText(formData, "yearsExperience"));
+  const targetIrr = Number(readText(formData, "targetIrr"));
+  const minimumInvestment = Number(readText(formData, "minimumInvestment"));
 
-  if (!companyName || !city || !state || !focus || !summary) {
+  if (!title || !city || !state || !summary) {
     redirect("/dashboard/sponsor?error=missing-fields");
   }
 
-  const result = await saveSponsorProfile({
-    companyName,
+  const result = await saveSponsorListing({
+    title,
     city,
     state,
-    focus,
     summary,
-    yearsExperience,
+    targetIrr,
+    minimumInvestment,
   });
 
   if (!result.ok) {
     redirect("/dashboard/sponsor?error=save-failed");
   }
 
-  redirect("/dashboard/sponsor?success=profile-submitted");
+  redirect("/dashboard/sponsor?success=listing-submitted");
 }

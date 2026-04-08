@@ -1,5 +1,6 @@
-import { createProfileAction } from "@/app/actions";
+import { createListingAction } from "@/app/actions";
 import { getSponsorDashboardData } from "@/lib/listings";
+import { formatCurrency, formatPercent } from "@/lib/utils";
 
 interface SponsorDashboardPageProps {
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
@@ -8,7 +9,7 @@ interface SponsorDashboardPageProps {
 export default async function SponsorDashboardPage({
   searchParams,
 }: SponsorDashboardPageProps) {
-  const { sponsor, profiles, requests } = await getSponsorDashboardData();
+  const { sponsor, listings } = await getSponsorDashboardData();
   const query = searchParams ? await searchParams : {};
 
   return (
@@ -17,43 +18,49 @@ export default async function SponsorDashboardPage({
         <div className="section-heading">
           <p className="section-kicker">Sponsor workspace</p>
           <h1>{sponsor.companyName}</h1>
-          <p className="section-summary">Submit a public track record profile and track investor introductions. Live offerings stay off the public app.</p>
+          <p className="section-summary">Submit deals and track review status. The rest stays manual for now.</p>
         </div>
 
         <div className="dashboard-grid">
           <div className="content-card">
-            <h2>Submit a track record profile</h2>
-            {query.success ? <p className="success-text">Profile submitted for admin review.</p> : null}
-            {query.error ? <p className="error-text">The profile form is missing required fields.</p> : null}
-            <form action={createProfileAction} className="stacked-form">
+            <h2>Submit a new listing</h2>
+            {query.success ? <p className="success-text">Listing submitted for admin review.</p> : null}
+            {query.error ? <p className="error-text">The listing form is missing required fields.</p> : null}
+            <form action={createListingAction} className="stacked-form">
               <label>
-                Company name
-                <input name="companyName" placeholder="Summit Grove Capital" required />
+                Deal name
+                <input name="title" placeholder="Sunset Terrace" required />
               </label>
               <label>
-                Headquarters city
+                City
                 <input name="city" placeholder="Austin" required />
               </label>
               <label>
-                Headquarters state
+                State
                 <input maxLength={2} name="state" placeholder="TX" required />
               </label>
               <label>
-                Asset focus
-                <input name="focus" placeholder="Multifamily" required />
-              </label>
-              <label>
-                Public summary
+                Summary
                 <textarea
                   name="summary"
-                  placeholder="Historical sponsor profile focused on realized outcomes, projection accuracy, and investor reporting habits."
+                  placeholder="176-unit value-add acquisition near major employment nodes."
                   required
                   rows={4}
                 />
               </label>
               <label>
-                Years operating
-                <input min="0" name="yearsExperience" placeholder="8" required type="number" />
+                Target IRR
+                <input min="0" name="targetIrr" placeholder="17" required type="number" />
+              </label>
+              <label>
+                Minimum investment
+                <input
+                  min="0"
+                  name="minimumInvestment"
+                  placeholder="50000"
+                  required
+                  type="number"
+                />
               </label>
               <button className="primary-button" type="submit">
                 Submit for review
@@ -62,32 +69,20 @@ export default async function SponsorDashboardPage({
           </div>
 
           <div className="content-card">
-            <h2>Your public profiles</h2>
+            <h2>Your submitted deals</h2>
             <p className="section-summary">
-              This MVP keeps the sponsor side intentionally thin: publish historical track record data and monitor intro requests.
+              This MVP keeps the sponsor side intentionally thin: submit deals and watch moderation status.
             </p>
             <div className="stack-list">
-              {profiles.map((profile) => (
-                <article className="list-row" key={profile.id}>
+              {listings.map((listing) => (
+                <article className="list-row" key={listing.id}>
                   <div>
-                    <strong>{profile.title}</strong>
+                    <strong>{listing.title}</strong>
                     <p>
-                      {profile.totalDealsCompleted} deals • {profile.averageActualIrr.toFixed(1)}% avg realized IRR
+                      {formatPercent(listing.targetIrr)} target IRR • {formatCurrency(listing.minimumInvestment)} minimum
                     </p>
                   </div>
-                  <span className="status-badge">{profile.status}</span>
-                </article>
-              ))}
-            </div>
-            <h3>Recent intro requests</h3>
-            <div className="stack-list">
-              {requests.map((request) => (
-                <article className="list-row" key={request.id}>
-                  <div>
-                    <strong>{request.investorName}</strong>
-                    <p>{request.message}</p>
-                  </div>
-                  <span className="status-badge">{request.status}</span>
+                  <span className="status-badge">{listing.status}</span>
                 </article>
               ))}
             </div>

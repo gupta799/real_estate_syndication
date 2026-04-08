@@ -5,8 +5,8 @@ import { Header } from "@/components/header";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Syndicate Lane",
-  description: "Investor-first sponsor intelligence directory for historical syndication track records.",
+  title: "Credex",
+  description: "A simple place for investors to evaluate real estate syndicators.",
 };
 
 export default function RootLayout({

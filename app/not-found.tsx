@@ -5,14 +5,15 @@ export default function NotFound() {
     <div className="page-stack narrow-page">
       <section className="content-card">
         <p className="section-kicker">Missing page</p>
-        <h1>That sponsor profile or route does not exist.</h1>
+        <h1>That listing or route does not exist.</h1>
         <p className="section-summary">
-          The directory should fail cleanly when a slug is invalid or a historical profile has not been published.
+          The marketplace should fail cleanly when a slug is invalid or a page has not been published.
         </p>
-        <Link className="primary-button" href="/syndications">
-          Back to sponsors
+        <Link className="primary-button" href="/listings">
+          Back to listings
         </Link>
       </section>
     </div>
   );
 }
+

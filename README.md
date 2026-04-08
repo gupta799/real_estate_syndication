@@ -1,6 +1,6 @@
-# Syndicate Lane
+# Credex
 
-Simple directory MVP for comparing syndication sponsors through historical track records without publicly displaying live deals.
+Simple MVP for investors to evaluate real estate syndicators.
 
 ## Stack
 
@@ -20,8 +20,8 @@ npm install
 2. Copy `.env.example` to `.env.local` and set:
 
 ```bash
-SUPABASE_URL=...
-SUPABASE_ANON_KEY=...
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 ```
 
 3. Run the app:
@@ -47,99 +47,46 @@ npm run test:e2e
 The smoke suite covers the simplified MVP paths:
 
 - home page messaging
-- sponsor profile browse flow
-- sponsor intro request form
-- sponsor profile submission flow
+- listings browse flow
+- listing access request form
+- sponsor submission flow
 - admin moderation view
 
 ## Deployment
 
-This app now supports two AWS paths:
+This app can deploy cleanly to AWS.
 
-- Amplify Hosting if you want the fastest managed web deploy
-- ECS Fargate if you want a managed container deployment
-
-Recommended for this repo: Terraform-managed ECS Fargate.
+- Recommended AWS path: Amplify Hosting for the first release
+- Why: it supports Next.js 15 SSR apps and connects directly to GitHub branches for deployment
+- CI in this repo: GitHub Actions workflow at `.github/workflows/ci.yml`
+- CD path: connect the GitHub repo to AWS Amplify and let branch pushes deploy automatically
 
 ### Required environment variables
 
-- `SUPABASE_URL`
-- `SUPABASE_ANON_KEY`
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 
-If you leave both variables empty, the app runs in demo mode.
+### AWS rollout
 
-### Option 1: Amplify Hosting
-
-1. Create an Amplify app and connect the repository.
-2. Point Amplify at the branch you want to deploy.
-3. Add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` in Amplify if you want live mode.
-4. Let Amplify build with `amplify.yml`.
-5. Attach a custom domain after the deployment is healthy.
-
-### Option 2: Terraform-managed ECS Fargate deploy
-
-The repo includes:
-
-- `Dockerfile` for a production Next.js container
-- `.dockerignore` to keep the image build small
-- `infra/terraform` for infrastructure as code
-
-1. Copy the Terraform variables file:
-
-```bash
-cp infra/terraform/terraform.tfvars.example infra/terraform/terraform.tfvars
-```
-
-2. Edit `infra/terraform/terraform.tfvars`.
-
-For demo mode, you can leave `container_secrets` empty.
-For live mode, put Supabase values in SSM Parameter Store or Secrets Manager and reference their ARNs.
-
-3. Create the infrastructure:
-
-cd infra/terraform
-terraform init
-terraform apply
-```
-
-4. Get the ECR repository URL from Terraform output and push the image:
-
-```bash
-aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <ecr-repository-url-prefix>
-docker build -t syndicate-lane .
-docker tag syndicate-lane:latest <ecr-repository-url>:latest
-docker push <ecr-repository-url>:latest
-```
-
-5. Force a fresh ECS deployment:
-
-```bash
-aws ecs update-service \
-  --cluster <ecs-cluster-name> \
-  --service <ecs-service-name> \
-  --force-new-deployment
-```
-
-Notes:
-
-- The container listens on port `3000`.
-- The current app can run entirely in demo mode with no Supabase values.
-- Runtime secrets should live in AWS SSM Parameter Store or AWS Secrets Manager, not in GitHub.
-- If you later add CI/CD, use GitHub OIDC to assume an AWS role instead of storing AWS keys in GitHub.
+1. Create an Amplify app and connect `gupta799/real_estate_syndication`
+2. Point Amplify at the `main` branch
+3. Add the two Supabase environment variables in Amplify
+4. Let Amplify build with `amplify.yml`
+5. Attach a custom domain when the branch deploy is healthy
 
 ## Current MVP surface
 
-- Public sponsor directory with filters
-- Profile detail page with historical performance and intro request form
-- Sponsor track record submission flow
-- Admin review queue for profiles and intro requests
+- Public listing marketplace with filters
+- Listing detail page with trust signals and inquiry form
+- Sponsor listing submission flow
+- Admin review queue for listings and inquiries
 - Supabase schema starter at `supabase/schema.sql`
 
 ## Simplified release scope
 
-- Investor experience: browse sponsor profiles and request introductions
-- Sponsor experience: upload a sponsor track record PDF publicly and view mocked parsed output
-- Admin experience: review pending profiles and recent intro requests
+- Investor experience: browse listings and request access
+- Sponsor experience: upload a deal PDF publicly and view mocked parsed output
+- Admin experience: review pending listings and recent inquiries
 - Deferred: payments, subscriptions, commitments, full CRM, analytics, and investor-facing account complexity
 
 ## Notes

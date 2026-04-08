@@ -7,7 +7,7 @@ export default function InvestorSignupPage() {
         <p className="section-kicker">Investor onboarding</p>
         <h1>Create an investor account</h1>
         <p className="section-summary">
-          Keep signup lean. The objective is comparing sponsor track records and requesting introductions, not browsing offerings.
+          Keep signup lean. The objective is browsing, trust-building, and access requests, not a full subscription flow.
         </p>
         <form action={signUpAction} className="stacked-form">
           <input name="role" type="hidden" value="investor" />
@@ -22,8 +22,8 @@ export default function InvestorSignupPage() {
           <label>
             Accreditation
             <select name="accreditation">
-              <option>Existing passive investor</option>
-              <option>Exploring sponsor track records</option>
+              <option>Self-reported accredited</option>
+              <option>Exploring opportunities</option>
             </select>
           </label>
           <button className="primary-button" type="submit">
@@ -34,3 +34,4 @@ export default function InvestorSignupPage() {
     </div>
   );
 }
+

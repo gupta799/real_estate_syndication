@@ -1,15 +1,16 @@
 import Link from "next/link";
 
 const navItems = [
-  { href: "/syndications", label: "Sponsors" },
-  { href: "/signup/sponsor", label: "Submit track record" },
+  { href: "/listings", label: "Syndicators" },
+  { href: "/blog", label: "Blog" },
+  { href: "/signup/sponsor", label: "Join as sponsor" },
 ];
 
 export function Header() {
   return (
     <header className="site-shell site-header">
       <Link href="/" className="brand-mark">
-        Syndicate Lane
+        Credex
       </Link>
       <nav className="primary-nav">
         {navItems.map((item) => (

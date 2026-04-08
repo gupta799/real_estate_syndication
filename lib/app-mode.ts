@@ -1,12 +1,14 @@
 import { AppMode } from "@/lib/types";
-import { getSupabaseEnv } from "@/lib/supabase/env";
 
 export function getAppMode(): AppMode {
-  const { url, key } = getSupabaseEnv();
-  const supabaseEnabled = Boolean(url && key);
+  const supabaseEnabled = Boolean(
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  );
 
   return {
     supabaseEnabled,
     label: supabaseEnabled ? "live" : "demo",
   };
 }
+

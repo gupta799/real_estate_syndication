@@ -1,6 +1,6 @@
 export type Role = "admin" | "sponsor" | "investor";
 
-export type SubmissionStatus =
+export type ListingStatus =
   | "draft"
   | "submitted"
   | "approved"
@@ -18,20 +18,9 @@ export interface UserProfile {
 export interface SponsorProfile {
   userId: string;
   companyName: string;
-  slug: string;
   bio: string;
-  publicSummary: string;
   trackRecordSummary: string;
-  assetFocus: string;
-  markets: string[];
-  investmentPhilosophy: string;
-  city: string;
-  state: string;
-  yearsExperience: number;
-  investorReportsPerYear: number;
   verificationStatus: "pending" | "verified";
-  status: SubmissionStatus;
-  publishedAt: string;
 }
 
 export interface InvestorProfile {
@@ -40,29 +29,7 @@ export interface InvestorProfile {
   investmentPreferences: string[];
 }
 
-export interface HistoricalDeal {
-  id: string;
-  sponsorId: string;
-  name: string;
-  market: string;
-  state: string;
-  acquiredYear: number;
-  exitedYear?: number;
-  businessPlan: string;
-  status: "realized" | "ongoing";
-  projectedIrr: number;
-  actualIrr?: number;
-  projectedEquityMultiple: number;
-  actualEquityMultiple?: number;
-  projectedHoldYears: number;
-  actualHoldYears?: number;
-  equityRaised: number;
-  documentationLevel: "high" | "medium" | "low";
-  outcomeSummary: string;
-  riskNotes: string;
-}
-
-export interface SyndicationProfile {
+export interface Listing {
   id: string;
   sponsorId: string;
   sponsorName: string;
@@ -71,35 +38,26 @@ export interface SyndicationProfile {
   city: string;
   state: string;
   summary: string;
-  assetFocus: string;
-  markets: string[];
-  investmentPhilosophy: string;
-  trackRecordSummary: string;
-  yearsExperience: number;
-  investorReportsPerYear: number;
-  totalDealsCompleted: number;
-  realizedDealsCount: number;
-  totalEquityRaised: number;
-  averageProjectedIrr: number;
-  averageActualIrr: number;
-  averageProjectedHoldYears: number;
-  averageActualHoldYears: number;
-  percentMeetingProjection: number;
-  capitalLossRate: number;
-  bestRealizedIrr: number;
-  worstRealizedIrr: number;
-  documentationCoverage: "high" | "medium" | "low";
-  dataSource: "self-reported" | "document-backed";
-  verificationStatus: "pending" | "verified";
-  status: SubmissionStatus;
+  marketStory: string;
+  propertyType: "multifamily";
+  strategy: string;
+  marketFocus: string;
+  units: number;
+  targetIrr: number;
+  equityMultiple: number;
+  cashOnCash: number;
+  holdPeriodYears: number;
+  minimumInvestment: number;
+  yearBuilt: number;
+  status: ListingStatus;
+  coverTone: string;
   publishedAt: string;
-  historicalDeals: HistoricalDeal[];
 }
 
-export interface ConnectionRequest {
+export interface ListingInquiry {
   id: string;
-  profileId: string;
-  profileTitle: string;
+  listingId: string;
+  listingTitle: string;
   investorId: string;
   investorName: string;
   investorEmail: string;
@@ -108,11 +66,12 @@ export interface ConnectionRequest {
   createdAt: string;
 }
 
-export interface ProfileFilters {
-  state?: string;
-  focus?: string;
-  minRealizedIrr?: number;
+export interface ListingFilters {
   sponsor?: string;
+  state?: string;
+  strategy?: string;
+  minIrr?: number;
+  maxMinimumInvestment?: number;
 }
 
 export interface AppMode {
